@@ -37,5 +37,6 @@ spec:
         make fill-db
         make stop
         make clean
+        '''
       }
     }
