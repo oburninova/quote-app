@@ -7,3 +7,6 @@ parameters:
   type: gp2
 reclaimPolicy: Delete
 allowVolumeExpansion: true
+mountOptions:
+  - debug
+volumeBindingMode: Immediate
