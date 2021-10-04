@@ -1,0 +1,36 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  annotations:
+    kompose.cmd: kompose convert
+    kompose.version: 1.24.0 (4a2a0458)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: data-script
+  name: data-script
+spec:
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: kompose convert
+        kompose.version: 1.24.0 (4a2a0458)
+      creationTimestamp: null
+      labels:
+        io.kompose.network/myapp: "true"
+        io.kompose.service: data-script
+    spec:
+      containers:
+      - image: isvalx/quotes-data-script:v1.2
+        name: data-script
+        envFrom:
+        - secretRef:
+            name: init
+      initContainers:
+      - name: init-container
+        image: isvalx/quotes-data-script:v1.2
+        envFrom:
+        - secretRef:
+            name: init
+        command: ['sh', '-c', "until mysql -h ${MYSQL_DB_HOST} -u ${MYSQL_USER} -p${MYSQL_USER_PASSWORD} -e 'show databases;'; do echo waiting for mydb; sleep 2; done"]
+      restartPolicy: Never   
+
