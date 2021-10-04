@@ -4,8 +4,6 @@ metadata:
   name: fast
 provisioner: kubernetes.io/aws-ebs
 parameters:
-  type: io1
-  iopsPerGB: "10"
-  fsType: ext4
+  type: gp2
 reclaimPolicy: Retain
 allowVolumeExpansion: true
