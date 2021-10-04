@@ -1,0 +1,63 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert -f docker-compose.yml
+    kompose.version: 1.20.0 (f3d54d784)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: data
+  name: data
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: data
+  strategy: {}
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: kompose convert -f docker-compose.yml
+        kompose.version: 1.20.0 (f3d54d784)
+      creationTimestamp: null
+      labels:
+        io.kompose.network/myapp: "true"
+        io.kompose.service: data
+    spec:
+      containers:
+      - image: isvalx/quotes-data:v1.1
+        name: db
+        envFrom:
+        - secretRef:
+            name: data-deployment
+        args:
+        - "--ignore-db-dir=lost+found" 
+        ports:
+        - containerPort: 3306
+        volumeMounts:
+        - mountPath: /var/lib/mysql
+          name: mypd
+      volumes:
+      - name: mypd
+        persistentVolumeClaim:
+          claimName: myclaim
+---
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    kompose.cmd: kompose convert -f docker-compose.yml
+    kompose.version: 1.24.0 (4a2a0458)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: data
+  name: data
+spec:
+  ports:
+    - name: "3306"
+      port: 3306
+      targetPort: 3306
+  selector:
+    io.kompose.service: data
+status:
+  loadBalancer: {}
