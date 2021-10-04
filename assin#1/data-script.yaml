@@ -33,3 +33,7 @@ spec:
             name: init
         command: ['sh', '-c', "until mysql -h ${MYSQL_DB_HOST} -u ${MYSQL_USER} -p${MYSQL_USER_PASSWORD} -e 'show databases;'; do echo waiting for mydb; sleep 2; done"]
       restartPolicy: Never   
+<<<<<<< HEAD
+=======
+
+>>>>>>> 7e7c7d183828f886afb90b2acc00bc1a75802ea1
