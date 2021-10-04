@@ -14,7 +14,6 @@ stop:
 	@kubectl delete -f assin#1/data-depl-svc.yaml
 	@kubectl delete -f assin#1/front-depl-svc.yaml
 	@kubectl delete -f assin#1/data-script.yaml
-	@kubectl delete -f assin#1/data-script.yaml
 
 clean: 
 	@kubectl delete -f assin#1/pvc.yaml
