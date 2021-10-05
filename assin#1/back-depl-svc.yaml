@@ -31,7 +31,7 @@ spec:
           - name: SQLALCHEMY_DATABASE_URI 
             valueFrom:
               secretKeyRef:
-                name: sqldatabase
+                name: back-secret
                 key: SQLALCHEMY_DATABASE_URI 
         ports:
         - containerPort: 3000

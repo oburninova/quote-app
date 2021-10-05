@@ -24,7 +24,7 @@ spec:
         name: data-script
         envFrom:
         - secretRef:
-            name: init
+            name: data-secret-script
       initContainers:
       - name: init-container
         image: isvalx/quotes-data-script:v1.2
