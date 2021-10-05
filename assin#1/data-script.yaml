@@ -30,6 +30,6 @@ spec:
         image: isvalx/quotes-data-script:v1.2
         envFrom:
         - secretRef:
-            name: init
+            name: data-secret-script
         command: ['sh', '-c', "until mysql -h ${MYSQL_DB_HOST} -u ${MYSQL_USER} -p${MYSQL_USER_PASSWORD} -e 'show databases;'; do echo waiting for mydb; sleep 2; done"]
       restartPolicy: Never 
